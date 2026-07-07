@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12강 DOM 기초</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 40px; }
+    #box { padding: 20px; border-radius: 12px; background: #f1f5f9; }
+  </style>
+</head>
+<body>
+  <h1 id="title">원래 제목</h1>
+  <div id="box">원래 내용</div>
+
+  <script>
+    const title = document.querySelector("#title");
+    const box = document.querySelector("#box");
+
+    title.textContent = "JavaScript가 제목을 바꿨습니다.";
+    title.style.color = "royalblue";
+
+    box.textContent = "이 내용도 JavaScript로 바뀌었습니다.";
+    box.style.backgroundColor = "#dbeafe";
+  </script>
+</body>
+</html>

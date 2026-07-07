@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>04강 연산자</title>
+</head>
+<body>
+  <h1>연산자 예제</h1>
+  <pre id="result"></pre>
+
+  <script>
+    const price = 3000;
+    const count = 4;
+    const age = 20;
+    const isMember = true;
+    const hasCoupon = false;
+
+    const lines = [
+      "총 금액: " + price * count + "원",
+      "성인인가요? " + (age >= 19),
+      "회원이면서 쿠폰이 있나요? " + (isMember && hasCoupon),
+      "회원이거나 쿠폰이 있나요? " + (isMember || hasCoupon)
+    ];
+
+    console.log(lines);
+    document.querySelector("#result").textContent = lines.join("\n");
+  </script>
+</body>
+</html>

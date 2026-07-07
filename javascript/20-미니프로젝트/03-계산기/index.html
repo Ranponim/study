@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>미니 프로젝트 03. 계산기</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 480px; margin: 40px auto; padding: 0 20px; }
+    input, button { padding: 10px; font-size: 16px; }
+    .row { display: flex; gap: 8px; margin-bottom: 12px; align-items: center; }
+    input { flex: 1; }
+    .ops button { cursor: pointer; }
+    #result { font-size: 24px; margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>계산기</h1>
+
+  <div class="row">
+    <input id="a" type="number" placeholder="첫 번째 숫자" />
+    <span>+</span>
+    <input id="b" type="number" placeholder="두 번째 숫자" />
+  </div>
+  <div class="ops">
+    <button data-op="+">더하기</button>
+    <button data-op="-">빼기</button>
+    <button data-op="*">곱하기</button>
+    <button data-op="/">나누기</button>
+  </div>
+  <p id="result">결과가 여기에 표시됩니다.</p>
+
+  <script>
+    const aInput = document.querySelector("#a");
+    const bInput = document.querySelector("#b");
+    const resultEl = document.querySelector("#result");
+    const buttons = document.querySelectorAll("button[data-op]");
+
+    buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        const op = button.dataset.op;
+        const a = Number(aInput.value);
+        const b = Number(bInput.value);
+
+        if (aInput.value === "" || bInput.value === "") {
+          resultEl.textContent = "두 숫자를 모두 입력해 주세요.";
+          return;
+        }
+
+        let result;
+
+        if (op === "+") result = a + b;
+        else if (op === "-") result = a - b;
+        else if (op === "*") result = a * b;
+        else if (op === "/") {
+          if (b === 0) {
+            resultEl.textContent = "0으로 나눌 수 없습니다.";
+            return;
+          }
+          result = a / b;
+        }
+
+        console.log(a, op, b, "=", result);
+        resultEl.textContent = a + " " + op + " " + b + " = " + result;
+      });
+    });
+  </script>
+</body>
+</html>

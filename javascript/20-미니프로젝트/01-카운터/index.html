@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>미니 프로젝트 01. 카운터</title>
+  <style>
+    body { font-family: system-ui, sans-serif; text-align: center; margin: 60px; }
+    #number { font-size: 96px; margin: 20px; }
+    button { padding: 12px 20px; margin: 6px; font-size: 18px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>카운터</h1>
+  <p id="number">0</p>
+  <button id="decrease">-1</button>
+  <button id="increase">+1</button>
+  <button id="reset">초기화</button>
+
+  <script>
+    let count = 0;
+    const numberEl = document.querySelector("#number");
+    const decreaseBtn = document.querySelector("#decrease");
+    const increaseBtn = document.querySelector("#increase");
+    const resetBtn = document.querySelector("#reset");
+
+    function render() {
+      numberEl.textContent = count;
+    }
+
+    increaseBtn.addEventListener("click", function () {
+      count = count + 1;
+      render();
+    });
+
+    decreaseBtn.addEventListener("click", function () {
+      count = count - 1;
+      render();
+    });
+
+    resetBtn.addEventListener("click", function () {
+      count = 0;
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

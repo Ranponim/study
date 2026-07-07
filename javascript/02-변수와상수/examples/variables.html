@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>02강 변수와 상수</title>
+</head>
+<body>
+  <h1>변수와 상수</h1>
+  <p id="result"></p>
+
+  <script>
+    const userName = "민수";
+    let score = 80;
+    score = 95;
+
+    console.log(userName);
+    console.log(score);
+
+    const result = document.querySelector("#result");
+    result.textContent = userName + "님의 점수는 " + score + "점입니다.";
+  </script>
+</body>
+</html>

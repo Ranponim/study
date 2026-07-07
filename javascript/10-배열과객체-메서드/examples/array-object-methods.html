@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10강 배열과 객체 메서드</title>
+</head>
+<body>
+  <h1>배열과 객체 메서드</h1>
+  <h2>성인 사용자</h2>
+  <ul id="userList"></ul>
+
+  <script>
+    const users = [
+      { name: "민수", age: 20 },
+      { name: "영희", age: 17 },
+      { name: "지수", age: 22 }
+    ];
+
+    users.forEach(function (user) {
+      console.log(user.name + "님의 나이는 " + user.age + "세입니다.");
+    });
+
+    const names = users.map(function (user) {
+      return user.name;
+    });
+
+    const adults = users.filter(function (user) {
+      return user.age >= 19;
+    });
+
+    console.log("이름 배열:", names);
+    console.log("성인:", adults);
+
+    const userList = document.querySelector("#userList");
+    adults.forEach(function (user) {
+      const li = document.createElement("li");
+      li.textContent = user.name + " (" + user.age + "세)";
+      userList.appendChild(li);
+    });
+  </script>
+</body>
+</html>

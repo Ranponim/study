@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>11강 스코프와 실행 흐름</title>
+</head>
+<body>
+  <h1>스코프와 실행 흐름</h1>
+  <p>Console 탭에서 출력 순서를 확인하세요.</p>
+
+  <script>
+    console.log("1. script 시작");
+
+    const globalMessage = "전역 변수입니다.";
+
+    function showMessage() {
+      const localMessage = "함수 안 변수입니다.";
+      console.log("2. 함수 안:", globalMessage);
+      console.log("3. 함수 안:", localMessage);
+    }
+
+    console.log("4. 함수 호출 전");
+    showMessage();
+    console.log("5. 함수 호출 후");
+
+    if (true) {
+      const blockMessage = "블록 안 변수입니다.";
+      console.log("6.", blockMessage);
+    }
+
+    // 아래 줄의 주석을 풀면 ReferenceError가 납니다.
+    // console.log(localMessage);
+    // console.log(blockMessage);
+  </script>
+</body>
+</html>

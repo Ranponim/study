@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>08강 배열</title>
+</head>
+<body>
+  <h1>좋아하는 음식 목록</h1>
+  <ul id="foodList"></ul>
+  <p id="count"></p>
+
+  <script>
+    const foods = ["김밥", "라면", "떡볶이"];
+    foods.push("피자");
+
+    const foodList = document.querySelector("#foodList");
+
+    for (let i = 0; i < foods.length; i++) {
+      const li = document.createElement("li");
+      li.textContent = i + "번: " + foods[i];
+      foodList.appendChild(li);
+    }
+
+    console.log(foods);
+    document.querySelector("#count").textContent = "총 " + foods.length + "개입니다.";
+  </script>
+</body>
+</html>

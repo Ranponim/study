@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>03강 자료형</title>
+</head>
+<body>
+  <h1>자료형 확인하기</h1>
+  <ul id="list"></ul>
+
+  <script>
+    const name = "영희";
+    const age = 20;
+    const isStudent = true;
+    const empty = null;
+    let notYet;
+
+    const values = [name, age, isStudent, empty, notYet];
+    const list = document.querySelector("#list");
+
+    values.forEach(function (value) {
+      console.log(value, typeof value);
+
+      const li = document.createElement("li");
+      li.textContent = String(value) + " → " + typeof value;
+      list.appendChild(li);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>09강 객체</title>
+</head>
+<body>
+  <h1>객체 예제</h1>
+  <div id="profile"></div>
+
+  <script>
+    const user = {
+      name: "민수",
+      age: 20,
+      hobby: "축구",
+      introduce: function () {
+        return "안녕하세요. 저는 " + this.name + "이고 취미는 " + this.hobby + "입니다.";
+      }
+    };
+
+    user.age = user.age + 1;
+
+    console.log(user);
+    document.querySelector("#profile").innerHTML = `
+      <p>이름: ${user.name}</p>
+      <p>나이: ${user.age}</p>
+      <p>${user.introduce()}</p>
+    `;
+  </script>
+</body>
+</html>

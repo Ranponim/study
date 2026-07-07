@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>05강 조건문</title>
+</head>
+<body>
+  <h1>점수 등급 확인</h1>
+  <p id="result"></p>
+
+  <script>
+    const score = 85;
+    let grade;
+
+    if (score >= 90) {
+      grade = "A";
+    } else if (score >= 80) {
+      grade = "B";
+    } else if (score >= 70) {
+      grade = "C";
+    } else {
+      grade = "다시 연습";
+    }
+
+    console.log("점수:", score, "등급:", grade);
+    document.querySelector("#result").textContent = "점수 " + score + "점은 " + grade + "입니다.";
+  </script>
+</body>
+</html>

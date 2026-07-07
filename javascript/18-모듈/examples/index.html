@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>18강 모듈</title>
+</head>
+<body>
+  <h1>모듈 예제</h1>
+  <p>일부 브라우저에서는 파일 더블클릭으로 모듈이 막힐 수 있습니다. 그럴 때는 VS Code Live Server로 실행하세요.</p>
+  <p id="result"></p>
+
+  <script type="module">
+    import { message, greet } from "./message.js";
+
+    console.log(message);
+    document.querySelector("#result").textContent = greet("학습자") + " " + message;
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>13강 이벤트</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 40px; }
+    button { padding: 10px 16px; margin-right: 8px; }
+    #count { font-size: 48px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>클릭 이벤트</h1>
+  <p id="count">0</p>
+  <button id="plusButton">증가</button>
+  <button id="resetButton">초기화</button>
+
+  <script>
+    let count = 0;
+    const countText = document.querySelector("#count");
+    const plusButton = document.querySelector("#plusButton");
+    const resetButton = document.querySelector("#resetButton");
+
+    plusButton.addEventListener("click", function () {
+      count = count + 1;
+      countText.textContent = count;
+    });
+
+    resetButton.addEventListener("click", function () {
+      count = 0;
+      countText.textContent = count;
+    });
+  </script>
+</body>
+</html>

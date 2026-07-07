@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>14강 폼과 입력값</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 40px; }
+    input, button { padding: 10px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>이름 입력하기</h1>
+  <form id="form">
+    <input id="nameInput" placeholder="이름을 입력하세요" />
+    <button>확인</button>
+  </form>
+  <p id="result"></p>
+
+  <script>
+    const form = document.querySelector("#form");
+    const nameInput = document.querySelector("#nameInput");
+    const result = document.querySelector("#result");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const name = nameInput.value.trim();
+
+      if (name === "") {
+        result.textContent = "이름을 입력해 주세요.";
+        return;
+      }
+
+      result.textContent = "안녕하세요, " + name + "님!";
+      nameInput.value = "";
+    });
+  </script>
+</body>
+</html>

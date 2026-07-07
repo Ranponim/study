@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>07강 함수</title>
+</head>
+<body>
+  <h1>함수 예제</h1>
+  <button id="button">인사하기</button>
+  <p id="result"></p>
+
+  <script>
+    function greet(name) {
+      return name + "님, 안녕하세요!";
+    }
+
+    function add(a, b) {
+      return a + b;
+    }
+
+    console.log(greet("민수"));
+    console.log("3 + 5 =", add(3, 5));
+
+    const button = document.querySelector("#button");
+    const result = document.querySelector("#result");
+
+    button.addEventListener("click", function () {
+      result.textContent = greet("학습자");
+    });
+  </script>
+</body>
+</html>
