@@ -36,29 +36,29 @@ HTML 파일을 더블클릭해 바로 실행하면서 배우는 방식으로, 22
 | 20 | 미니 프로젝트 | [20-미니프로젝트](./javascript/20-미니프로젝트) |
 | 21 | 다음 단계 로드맵 | [21-다음단계-로드맵](./javascript/21-다음단계-로드맵) |
 
-### 2. Web Front-End 기본 과정 (`./day1` ~ `./day5`)
+### 2. Web Front-End 기본 과정 (`./frontend_lecture`)
 
 JavaScript 기초를 마친 후 듣는 **React + TypeScript 5일 강의** 노트입니다.  
 출처: [26.07 / 삼성전자 Web Front-End 기본 과정](https://curse-battery-d1c.notion.site/26-07-Web-Front-End-390c672eb95e80d084eec11421e443ac) (박영웅 강사)
 
 | 일차 | 주제 | 핵심 결과물 | 노트 |
 | --- | --- | --- | --- |
-| **Day 1** | 프로젝트 구성 + TypeScript 기초 + React 기본 문법 | Vite + React + TS 프로젝트, Counter 컴포넌트 | [📖 열기](./day1/README.md) |
-| **Day 2** | React 컴포넌트 + CSS Module / Tailwind CSS + Context API | 재사용 컴포넌트, 다크모드 Context | [📖 열기](./day2/README.md) |
-| **Day 3** | Zustand 상태 관리 + React Router 라우팅 기초 | Todo 상태 관리, 라우터로 페이지 분리 | [📖 열기](./day3/README.md) |
-| **Day 4** | React Router 활용 + 네트워크/비동기 + App 개발 실습 1 | 영화 검색 앱 (OMDb API) | [📖 열기](./day4/README.md) |
-| **Day 5** | App 개발 실습 2 + Vercel 배포 + 최종 평가 대비 | Todo 앱 (Heropy API) 배포 및 평가 정리 | [📖 열기](./day5/README.md) |
+| **Day 1** | 프로젝트 구성 + TypeScript 기초 + React 기본 문법 | Vite + React + TS 프로젝트, Counter 컴포넌트 | [📖 열기](./frontend_lecture/day1/README.md) |
+| **Day 2** | React 컴포넌트 + CSS Module / Tailwind CSS + Context API | 재사용 컴포넌트, 다크모드 Context | [📖 열기](./frontend_lecture/day2/README.md) |
+| **Day 3** | Zustand 상태 관리 + React Router 라우팅 기초 | Todo 상태 관리, 라우터로 페이지 분리 | [📖 열기](./frontend_lecture/day3/README.md) |
+| **Day 4** | React Router 활용 + 네트워크/비동기 + App 개발 실습 1 | 영화 검색 앱 (OMDb API) | [📖 열기](./frontend_lecture/day4/README.md) |
+| **Day 5** | App 개발 실습 2 + Vercel 배포 + 최종 평가 대비 | Todo 앱 (Heropy API) 배포 및 평가 정리 | [📖 열기](./frontend_lecture/day5/README.md) |
 
 ## 🗺️ 추천 학습 흐름
 
 ```txt
 javascript/  (3주)
   ↓ JavaScript 기본 문법 + DOM/이벤트 + 비동기 + npm
-day1/  ─┐
-day2/   │  (5일)
-day3/   │  React + TypeScript + 외부 라이브러리
-day4/   │  라우팅 + 네트워크 + 실전 앱
-day5/  ─┘
+frontend_lecture/day1/  ─┐
+frontend_lecture/day2/   │  (5일)
+frontend_lecture/day3/   │  React + TypeScript + 외부 라이브러리
+frontend_lecture/day4/   │  라우팅 + 네트워크 + 실전 앱
+frontend_lecture/day5/  ─┘
   ↓ Todo 앱을 Vercel에 배포하고 강의 종료
 ```
 
@@ -72,7 +72,7 @@ git add javascript/03-자료형/
 git commit -m "docs(js-03): 자료형 강의 노트 추가"
 
 # React 강의 한 일차를 끝낸 뒤
-git add day3/
+git add frontend_lecture/day3/
 git commit -m "docs(day3): Zustand + React Router 기초 정리"
 ```
 
@@ -88,8 +88,12 @@ study/
 │   ├── 00-환경설정/
 │   ├── ...
 │   └── 21-다음단계-로드맵/
-└── day1/ ~ day5/             ← React + TS 5일 강의 노트
-    └── README.md
+└── frontend_lecture/         ← React + TS 5일 강의 노트
+    ├── day1/
+    ├── day2/
+    ├── day3/
+    ├── day4/
+    └── day5/
 ```
 
 ## 🔧 처음 클론한 후 설정
