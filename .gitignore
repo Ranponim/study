@@ -16,3 +16,6 @@ Thumbs.db
 
 # OpenCode session data
 .omo/
+
+# Playwright browser cache
+.playwright-mcp/

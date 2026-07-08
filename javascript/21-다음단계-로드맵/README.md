@@ -16,9 +16,9 @@ JavaScript 기초 과정을 마친 뒤 어떤 순서로 공부하면 좋은지 �
 - 이벤트
 - 비동기와 fetch
 
-## 1.5단계. React 대비 보충 (22~25강)
+## 1.5단계. React 대비 보충 (22~26강)
 
-**React/TypeScript 강의를 듣기 전**에 22~25강을 한 번 더 들으세요. 이 4강은 React 코드에 **바로** 등장하는 문법만 골라 모았습니다.
+**React/TypeScript 강의를 듣기 전**에 22~26강을 한 번 더 들으세요. 이 5강은 React 코드에 **바로** 등장하는 문법만 골라 모았습니다.
 
 | 강 | 주제 | 왜 필요한가 |
 |---|---|---|
@@ -26,6 +26,7 @@ JavaScript 기초 과정을 마친 뒤 어떤 순서로 공부하면 좋은지 �
 | [23-배열과-문자열-심화](../23-배열과-문자열-심화) | `find()`, `includes()`, `trim()`, `split()` | `todos.find((t) => t.id === id)`, `get().input.trim()` 이해 |
 | [24-URL과-타이머](../24-URL과-타이머) | `encodeURIComponent`, `URLSearchParams`, `setTimeout` | 검색어 URL 처리, useEffect 디바운싱 패턴 이해 |
 | [25-HTTP와-에러-처리](../25-HTTP와-에러-처리) | GET/POST/PUT/DELETE, 상태 코드, `try/catch`, `instanceof Error`, `response.ok` | Axios API 모듈, store의 `search`/`add`/`toggle`/`remove` 액션 이해 |
+| [26-React-사전학습-정리](../26-React-사전학습-정리) | 옵셔널 체이닝, Truthy/Falsy, 콜백, `any`/`unknown`/`never`, `readonly`, 타입 좁히기, `as`/`!`, 제네릭 | 강사가 Day 3에 추천한 사전학습 노션을 우리 노트 스타일로 정리. `interface extends`, `useRef<HTMLInputElement>`, `event.nativeEvent.isComposing` 등 강의에서 등장한 패턴 포함 |
 
 ## 2단계. DOM 프로젝트 반복
 

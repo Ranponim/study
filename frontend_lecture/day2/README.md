@@ -111,7 +111,27 @@ function App() {
 }
 ```
 
-> 💡 `children`은 React에서 가장 흔한 합성 패턴입니다. 모달, 사이드바, 카드 같은 **"컨테이너" 컴포넌트**는 거의 다 `children`을 받습니다.
+> 💡 `children`은 React에서 가장 흔한 합성 패턴입니다. 모달, 사이드바, 카드 같은 **"컨테이너"** 컴포넌트는 거의 다 `children`을 받습니다.
+
+#### "요소" vs "슬롯" 용어
+
+강의에서 헷갈리기 쉬운 두 단어를 정리합니다.
+
+| 용어 | 의미 | 예시 |
+| --- | --- | --- |
+| **요소 (Element)** | JSX로 만든 **하나의 블록** (HTML 태그, 컴포넌트) | `<form>`, `<TextField />`, `<MyButton>확인</MyButton>` |
+| **슬롯 (Slot)** | 부모가 **자식 컴포넌트에 끼워 넣을 자리** | `<Card>...</Card>`의 `...` 부분 = `children` |
+
+다시 말해, `<Card>...</Card>`를 쓸 때 `<Card>`는 컴포넌트(요소의 한 종류)이고, `<Card>`와 `</Card>` 사이에 들어가는 모든 JSX가 **슬롯(= `children`)**입니다.
+
+```tsx
+// Card는 컴포넌트 (= 요소)
+// "공지사항 내용" 부분이 슬롯 (= children)
+<Card title="공지">
+  <p>슬롯 1번</p>
+  <button>슬롯 2번</button>
+</Card>
+```
 
 ### 1.3 조건부 렌더링 — "상황에 따라 다른 화면"
 
@@ -441,6 +461,45 @@ function Page() {
 >
 > 너무 많은 데이터를 한 Context에 넣으면 성능이 떨어질 수 있으니, **변경 빈도가 비슷한 것끼리** 묶는 게 좋습니다.
 
+#### `import` / `export` 두 가지 방식
+
+`18-모듈`에서는 named export만 봤지만, React 강의 코드는 **default export**를 많이 씁니다. 둘을 명확히 구분하세요.
+
+```ts
+// ========== export 쪽 (정의하는 파일) ==========
+
+// 1) default export — 파일당 1개, 이름이 강제되지 않음
+export default function Button(props) { ... }
+export default function () { ... }   // 익명도 OK (이름 없어도 됨)
+
+// 2) named export — 여러 개, 반드시 이름 필요
+export const age = 20
+export const isValid = false
+export function add(a, b) { return a + b }
+
+// ========== import 쪽 (가져오는 파일) ==========
+
+// 1) default 가져오기 — 이름 자유
+import Button from './Button'           // 아무 이름이나 OK
+import Btn from './Button'              // 이렇게 바꿔 써도 됨
+
+// 2) named 가져오기 — 이름이 일치해야 함
+import { age, isValid } from './data'
+import { add as plus } from './data'    // as로 이름 바꾸기 가능
+
+// 3) 섞어서
+import Button, { age, isValid } from './data'  // default + named 동시
+import * as data from './data'                  // 전체를 객체로
+// data.age, data.isValid 로 접근
+```
+
+| 구분 | 개수 | 이름 | 사용 |
+| --- | --- | --- | --- |
+| `export default` | 파일당 1개 | 자유 | `import 아무거나 from '...'` |
+| `export` (named) | 여러 개 | 필수 | `import { 이름 } from '...'` |
+
+> Day 1~2 강의의 모든 컴포넌트(`App`, `Counter`, `Button`, `TextField`, `Header` 등)는 `export default function ...` 형태입니다.
+
 ---
 
 ## 4. 실습 — Todo 앱의 셸 만들기
@@ -491,6 +550,38 @@ export default function Button({
 ```
 
 > ✨ `...rest`와 `ButtonHTMLAttributes<HTMLButtonElement>` 덕분에 `onClick`, `type` 등 모든 표준 버튼 속성을 그대로 전달할 수 있습니다.
+
+#### `extends ButtonHTMLAttributes<HTMLButtonElement>` 패턴 해부
+
+이 한 줄이 왜 중요한지 분해해 봅니다.
+
+```ts
+import type { ButtonHTMLAttributes, ReactNode } from 'react'
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  // ↑ 표준 <button>이 받을 수 있는 모든 속성(onClick, type, disabled, aria-*, ...)을
+  //   자동으로 ButtonProps에 "물려받음" — extends(상속) 키워드
+  children: ReactNode    // ← 표준에는 없는 우리만의 추가 속성
+  variant?: 'primary' | 'ghost'
+}
+```
+
+그래서 `Button`을 쓸 때 `type="submit"`, `disabled`, `aria-label` 같은 표준 속성도 **그대로 타입 안전**하게 쓸 수 있습니다.
+
+```tsx
+<Button type="submit" disabled={loading} aria-label="로그인">
+  로그인
+</Button>
+```
+
+> 비슷한 패턴이 매우 자주 등장합니다.
+> ```ts
+> interface InputProps extends InputHTMLAttributes<HTMLInputElement> { ... }
+> interface DivProps   extends HTMLAttributes<HTMLDivElement> { ... }
+> ```
+> "표준 HTML 속성 + 우리 프로젝트 고유 속성"을 합치는 표준 방식입니다.
+
+---
 
 **`src/components/TodoItem.tsx`** — 한 줄 할 일
 

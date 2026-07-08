@@ -144,6 +144,26 @@ city = 123            // ❌ Error! string 변수에는 number를 못 넣음
 
 > 💡 **실무 팁**: 타입을 매번 적기보다 **타입 추론을 믿고, 함수 매개변수처럼 추론이 안 되는 곳에서만 타입을 표기**하는 게 일반적입니다.
 
+#### 원시 타입 vs 참조 타입 — "왜 React 상태는 항상 새로 만들어야 할까?"
+
+JavaScript의 값은 두 부류로 나뉩니다.
+
+| 종류 | 값 | 비교 | 복사 |
+| --- | --- | --- | --- |
+| **원시(Primitive)** | `string`, `number`, `boolean`, `null`, `undefined`, `symbol`, `bigint` | **값**으로 비교 (`1 === 1` true) | 진짜로 복사됨 |
+| **참조(Reference)** | `array`, `object`, `function` | **참조**(주소)로 비교 (`{a:1} === {a:1}` false) | 참조가 복사됨 |
+
+```ts
+const a = [1, 2]
+const b = a          // 같은 배열을 가리킴 (복사 X)
+b.push(3)
+console.log(a)       // [1, 2, 3] — a도 바뀜!
+
+const updated = [...a, 4]   // 새 배열을 만들어야 독립
+```
+
+> 💡 그래서 React에서 상태를 바꿀 때 `{ ...user, age: 21 }` 처럼 **spread**로 새 객체를 만들어 전달합니다. 원본을 직접 바꾸면 React가 변화를 감지 못 합니다. 22~26강에서 자세히 다룹니다.
+
 ### 2.2 배열과 튜플
 
 ```ts
@@ -271,6 +291,29 @@ return (
 
 > 💡 `key`는 React가 어떤 항목이 바뀌었는지 구분할 때 쓰는 "이름표"입니다. 지금은 배열의 인덱스를 넣어도 동작하지만, 실무에서는 안정적인 ID를 쓰는 게 좋습니다.
 
+#### 보간법(Interpolation)의 한계 — "뭘 넣을 수 있나?"
+
+`{}` 안에는 **JS 표현식**이 들어갑니다. 결국 화면에 출력하려면 React가 **문자열/숫자**로 바꿀 수 있어야 합니다.
+
+```tsx
+// ✅ OK — 숫자, 문자열, 계산 결과, 삼항
+<p>{1 + 2}</p>                // 3
+<p>{`안녕, ${name}님`}</p>    // 안녕, 영웅님
+<p>{isLogin ? '환영' : '로그인'}</p>
+
+// ❌ 에러/경고 — 객체, 배열, 불리언을 그대로 넣을 수 없음
+<p>{true}</p>                  // 안 보임 (불리언은 React가 무시)
+<p>{user}</p>                  // 에러! 객체는 React가 출력 못 함
+<p>{a: 123}</p>                // 문법 에러
+```
+
+해결: 객체는 `.`로 풀어 쓰고, 배열은 `join()`을 씁니다.
+
+```tsx
+<p>{user.name}</p>
+<p>{fruits.join(', ')}</p>
+```
+
 ### 3.2 컴포넌트 — "UI를 함수로 만드는 것"
 
 **함수형 컴포넌트**가 표준입니다. JS의 함수 (참고: `../javascript/07-함수`)에서 **JSX를 반환**하면 컴포넌트입니다.
@@ -367,6 +410,22 @@ function Counter() {
 > setCount(count + 1) // ✅ 함수로만 변경
 > ```
 
+#### 단방향 데이터 흐름 — "React는 one-way binding"
+
+Vue/Angular에는 `v-model`, `ngModel` 같은 **양방향 바인딩(two-way data binding)**이 있어, 입력값을 바꾸면 변수가 자동으로 바뀌고 그 반대도 됩니다.
+
+React는 **단방향**입니다. 직접 양방향처럼 보이게 하려면 `value`(읽기) + `onChange`(쓰기) **두 가지**를 명시적으로 연결합니다.
+
+```tsx
+// React식 "양방향 흉내" — 사실은 한 방향이 value, 한 방향이 onChange
+<input
+  value={name}                    // state → input (읽기)
+  onChange={e => setName(e.target.value)}  // input → state (쓰기)
+/>
+```
+
+> 💡 처음 보면 두 개를 적어야 해서 번거롭지만, **데이터가 어디서 왔는지 항상 명확**하다는 장점이 있습니다. 강사가 적어둔 "2way data binding"은 이런 패턴을 말합니다.
+
 ### 3.5 이벤트 — "사용자 행동에 반응"
 
 JS의 `addEventListener`와 비슷한데, JSX에서는 **`on이벤트명={함수}`** 형태로 작성합니다. (참고: `../javascript/13-이벤트`)
@@ -388,6 +447,61 @@ function Form() {
 ```
 
 > 💡 React에서는 HTML의 `onchange`가 아니라 **`onChange`** (카멜케이스)입니다.
+
+#### 한글 입력 + Enter 키 — IME 처리
+
+`<input>`에서 한글을 조합 중(예: "한"을 만들기 위해 `ㅎ` + `ㅏ` + `ㄴ` 입력 중)에 Enter를 누르면 **조합 완료** 신호가 먼저 발생합니다. 이 상태에서 `onKeyDown`이 동작하면 의도하지 않게 폼이 제출되는 버그가 생깁니다.
+
+```tsx
+onKeyDown={event => {
+  // 조합 중(IME converting)에는 Enter를 무시
+  if (event.nativeEvent.isComposing) return
+  if (event.key === 'Enter') {
+    addFruit()
+  }
+}}
+```
+
+> `event.nativeEvent.isComposing`은 한국어/중국어/일본어 입력에서 매우 자주 쓰는 패턴입니다. 강사가 "HTMLInputElement 사용 원리"와 함께 짚어준 부분입니다.
+
+#### 입력 직접 참조하기 — `useRef<HTMLInputElement>`
+
+`state`로 입력값을 다루면 **모든 타이핑마다 리렌더링**됩니다. 진짜 DOM 노드에 직접 접근하고 싶을 때 `useRef`를 씁니다.
+
+```tsx
+import { useRef, useState } from 'react'
+
+function FruitInput() {
+  const [fruits, setFruits] = useState<string[]>([])
+  const [name, setName] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)  // input 박스의 "주소"
+
+  function addFruit() {
+    setFruits([name, ...fruits])
+    setName('')
+    inputRef.current?.focus()  // 입력칸에 다시 포커스
+  }
+
+  return (
+    <>
+      <input
+        ref={inputRef}        // 여기 박스의 진짜 DOM이 inputRef에 담김
+        value={name}
+        onChange={e => setName(e.target.value)}
+        onKeyDown={e => {
+          if (e.nativeEvent.isComposing) return
+          if (e.key === 'Enter') addFruit()
+        }}
+      />
+      <button onClick={addFruit}>추가</button>
+      <div>{fruits.length}개</div>
+      <ul>{fruits.map(f => <li key={f}>{f}</li>)}</ul>
+    </>
+  )
+}
+```
+
+> `useRef<HTMLInputElement>(null)`의 `HTMLInputElement`는 "input 박스 전용 ref"라는 뜻의 **TypeScript 타입**입니다. 26강(타입 단언)에서 더 자세히 다룹니다.
 
 ---
 
@@ -439,6 +553,18 @@ export default App
 - **State**: `useState(start)`
 - **이벤트**: `onClick={...}`
 - **JSX**: `<div>`, `<button>`, `{}`로 값 끼워넣기
+
+### 💻 개발 팁 — VS Code Emmet
+
+JSX 안에서 **`div.counter>button.clicked*3`** 처럼 Emmet 약어를 쓰면 HTML을 빠르게 생성할 수 있습니다.
+
+| 입력 | 확장 |
+| --- | --- |
+| `div.container>ul>li*3` | `<div class="container"><ul><li></li><li></li><li></li></ul></div>` |
+| `button.bg-blue-500.hover:bg-blue-700` | 클래스 여러 개 한번에 |
+| `form>(input+button)*2` | 괄호로 그룹화 |
+
+> JSX에서는 class는 `className`으로 자동 매핑되는 경우가 많지만, Emmet 기본 약어의 `class`는 직접 바꿔야 할 때도 있습니다. Tab 키로 확정 직전 확인하세요.
 
 ---
 

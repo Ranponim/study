@@ -107,6 +107,33 @@ function IncreaseButton() {
 
 > 💡 **성능 팁**: 컴포넌트에서 store를 쓸 때는 항상 selector를 먼저 고려하세요. 전체 객체를 구조분해하면 모든 변경에 재렌더링됩니다.
 
+#### 미들웨어(middleware) — "store를 감싸는 함수"
+
+강의 노트에 적힌 "미들웨어"는 store의 동작을 **가로채서** 추가 기능을 붙이는 함수입니다. Redux에서 유래한 개념이고, Zustand도 `create`에 미들웨어를 끼워 쓸 수 있습니다.
+
+```ts
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'  // localStorage에 자동 저장
+
+export const useStore = create(
+  persist<StoreState>(
+    (set) => ({ /* state, actions */ }),
+    { name: 'my-app-storage' }  // localStorage 키
+  )
+)
+```
+
+흐름:
+
+```txt
+create(store)
+  → persist 미들웨어로 감쌈
+  → set()이 호출되면 자동으로 localStorage에 저장
+  → 새로고침해도 상태가 복원됨
+```
+
+> 본 5일 강의에서는 미들웨어를 직접 다루지 않지만, **"create의 두 번째 자리에 들어가는 함수"** 라는 점이 Zustand의 확장 포인트입니다. 5일 이후 실전에서 `persist`, `devtools`, `immer` 같은 미들웨어를 만나게 됩니다.
+
 ### 2.4 Todo store — 조금 더 실용적인 예제
 
 ```tsx

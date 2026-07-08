@@ -39,6 +39,7 @@ HTML 파일을 더블클릭해 바로 실행하면서 배우는 방식으로, 22
 | 23 | 배열과 문자열 심화 | [23-배열과-문자열-심화](./javascript/23-배열과-문자열-심화) |
 | 24 | URL 다루기와 타이머 | [24-URL과-타이머](./javascript/24-URL과-타이머) |
 | 25 | HTTP와 에러 처리 | [25-HTTP와-에러-처리](./javascript/25-HTTP와-에러-처리) |
+| 26 | React 학습 전 보강 | [26-React-사전학습-정리](./javascript/26-React-사전학습-정리) |
 
 ### 2. Web Front-End 기본 과정 (`./frontend_lecture`)
 
@@ -111,6 +112,7 @@ cd study
 ## 📖 참고 자료
 
 - [강의 노션 페이지](https://curse-battery-d1c.notion.site/26-07-Web-Front-End-390c672eb95e80d084eec11421e443ac)
+- [사전학습 노션 (JS + TS, 강사 Day 3 추천)](https://curse-battery-d1c.notion.site/React-JS-TS-38fc672eb95e8001b5e3de9510ca523d) — 우리 노트에서는 [26-React-사전학습-정리](./javascript/26-React-사전학습-정리/README.md)에 정리됨
 - [한눈에 보는 타입스크립트 (HEROPY.DEV)](https://www.heropy.dev/p/WhqSC8)
 - [React 핵심 패턴 with TS (HEROPY.DEV)](https://www.heropy.dev/p/QduRma)
 - [Tailwind CSS 핵심 패턴 (HEROPY.DEV)](https://www.heropy.dev/p/E67ZHS)

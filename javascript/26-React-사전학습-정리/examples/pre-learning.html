@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>26강. React 학습 전 보강 예제</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 760px; margin: 24px auto; padding: 0 16px; }
+    h1 { font-size: 22px; }
+    .box { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 12px 0; background: #fafafa; }
+    button { padding: 6px 12px; font-size: 14px; margin: 4px 0; }
+    pre { background: #fff; padding: 8px; border: 1px solid #eee; border-radius: 4px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>26강. React 학습 전 보강</h1>
+  <p>F12 → Console에서 출력도 함께 확인하세요.</p>
+
+  <div class="box">
+    <h2>1. 옵셔널 체이닝</h2>
+    <pre id="outOptional"></pre>
+  </div>
+
+  <div class="box">
+    <h2>2. Truthy / Falsy</h2>
+    <pre id="outTruthy"></pre>
+  </div>
+
+  <div class="box">
+    <h2>3. Object.entries / forEach</h2>
+    <pre id="outObject"></pre>
+  </div>
+
+  <div class="box">
+    <h2>4. 이벤트 핸들러 — 함수 vs 함수()</h2>
+    <button id="btnOk">잘못된 등록 확인</button>
+    <pre id="outEvent">버튼을 누르세요.</pre>
+  </div>
+
+  <div class="box">
+    <h2>5. 콜백 — forEach로 1,2,3 출력</h2>
+    <pre id="outForEach"></pre>
+  </div>
+
+  <script>
+    // 1. 옵셔널 체이닝
+    const user = { profile: { name: "Kim" } };
+    document.getElementById("outOptional").textContent =
+      `user.profile.name: ${user.profile.name}\n` +
+      `user.account?.name: ${user.account?.name}\n` +
+      `user.profile?.address?.city: ${user.profile?.address?.city}\n` +
+      `user.getName?.(): ${user.getName?.()}`;
+    console.log("optional:", user.profile?.address?.city);
+
+    // 2. Truthy / Falsy
+    const samples = [false, 0, "", null, undefined, NaN, 1, "0", [], {}];
+    const truthy = samples.filter(Boolean);
+    const falsy = samples.filter(v => !v);
+    document.getElementById("outTruthy").textContent =
+      `falsy 6개: false, 0, '', null, undefined, NaN\n` +
+      `falsy로 분류된 값: [${falsy}]\n` +
+      `truthy로 분류된 값: [${truthy}]`;
+    console.log("truthy:", truthy, "falsy:", falsy);
+
+    // 3. Object.entries
+    const scores = { kim: 90, lee: 85 };
+    const lines = [];
+    Object.entries(scores).forEach(([name, score]) => {
+      lines.push(`${name}: ${score}`);
+    });
+    document.getElementById("outObject").textContent =
+      `keys: [${Object.keys(scores)}]\n` +
+      `values: [${Object.values(scores)}]\n` +
+      `entries: [${Object.entries(scores).map(e => "[" + e + "]")}]\n` +
+      `forEach 결과:\n${lines.join("\n")}`;
+
+    // 4. 이벤트 핸들러
+    function handleClick() {
+      return "클릭 핸들러 실행됨";
+    }
+    document.getElementById("btnOk").addEventListener("click", () => {
+      const result = handleClick();
+      document.getElementById("outEvent").textContent =
+        `button.addEventListener('click', handleClick) — 클릭 시 handleClick이 실행됨\n` +
+        `지금 막 실행한 결과: ${result}\n` +
+        `(만약 등록 시 handleClick() 으로 적었다면 등록 즉시 1회 실행됐을 것)`;
+    });
+
+    // 5. forEach 콜백
+    const forEachOut = [];
+    [1, 2, 3].forEach((n) => {
+      forEachOut.push(n);
+    });
+    document.getElementById("outForEach").textContent =
+      `[1, 2, 3].forEach 결과: [${forEachOut}]`;
+  </script>
+</body>
+</html>

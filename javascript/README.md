@@ -60,8 +60,9 @@
 | 23 | 배열과 문자열 심화 | [23-배열과-문자열-심화](./23-배열과-문자열-심화) |
 | 24 | URL 다루기와 타이머 | [24-URL과-타이머](./24-URL과-타이머) |
 | 25 | HTTP와 에러 처리 | [25-HTTP와-에러-처리](./25-HTTP와-에러-처리) |
+| 26 | React 학습 전 보강 | [26-React-사전학습-정리](./26-React-사전학습-정리) |
 
-> 💡 **22~25강은 React/TypeScript 강의를 듣기 전 필수 보충 과정입니다.** 구조분해, spread, `find()`, `encodeURIComponent`, `try/catch`, HTTP 메서드 등 React 코드에 바로 등장하는 문법만 모았습니다.
+> 💡 **22~26강은 React/TypeScript 강의를 듣기 전 필수 보충 과정입니다.** 구조분해, spread, `find()`, `encodeURIComponent`, `try/catch`, HTTP 메서드, 옵셔널 체이닝, TypeScript 심화(any/unknown/never, readonly, 타입 좁히기, 제네릭) 등 React 코드에 바로 등장하는 문법만 모았습니다. **26강은 강사가 Day 3에서 추천한 [사전학습 노션](https://curse-battery-d1c.notion.site/React-JS-TS-38fc672eb95e8001b5e3de9510ca523d)을 우리 노트 스타일로 정리한 것**입니다.
 
 ## 예제 실행 방법
 
