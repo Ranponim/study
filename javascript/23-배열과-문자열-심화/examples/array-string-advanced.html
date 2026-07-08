@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>23강. 배열과 문자열 심화 예제</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 24px auto; padding: 0 16px; }
+    h1 { font-size: 22px; }
+    .box { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 12px 0; background: #fafafa; }
+    input { padding: 6px 8px; font-size: 14px; }
+    button { padding: 6px 12px; font-size: 14px; margin-left: 6px; }
+    pre { background: #fff; padding: 8px; border: 1px solid #eee; border-radius: 4px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>23강. 배열과 문자열 심화</h1>
+  <p>F12 → Console에서 출력도 함께 확인하세요.</p>
+
+  <div class="box">
+    <h2>1. trim()으로 입력값 다듬기</h2>
+    <input id="nameInput" placeholder="이름 입력 (앞뒤 공백 OK)" />
+    <button id="btnTrim">확인</button>
+    <pre id="outTrim"></pre>
+  </div>
+
+  <div class="box">
+    <h2>2. find() / some() / every()</h2>
+    <pre id="outFind"></pre>
+  </div>
+
+  <div class="box">
+    <h2>3. split() / join()</h2>
+    <pre id="outSplit"></pre>
+  </div>
+
+  <script>
+    // 1. trim
+    const outTrim = document.getElementById("outTrim");
+    document.getElementById("btnTrim").addEventListener("click", () => {
+      const raw = document.getElementById("nameInput").value;
+      const cleaned = raw.trim();
+      outTrim.textContent =
+        `원본 길이: ${raw.length}\n` +
+        `trim 후 길이: ${cleaned.length}\n` +
+        `결과: "${cleaned}"`;
+      console.log("원본:", JSON.stringify(raw), "trim:", JSON.stringify(cleaned));
+    });
+
+    // 2. find / some / every
+    const users = [
+      { id: 1, name: "민수", age: 15 },
+      { id: 2, name: "영희", age: 22 },
+      { id: 3, name: "지수", age: 30 },
+    ];
+    const adult = users.find((u) => u.age >= 20);
+    const hasYoung = users.some((u) => u.age < 20);
+    const allAdults = users.every((u) => u.age >= 20);
+
+    document.getElementById("outFind").textContent =
+      `첫 번째 성인: ${JSON.stringify(adult)}\n` +
+      `미성년자 있음? ${hasYoung}\n` +
+      `전원 성인? ${allAdults}`;
+    console.log(adult, hasYoung, allAdults);
+
+    // 3. split / join
+    const csv = "javascript,react,vue";
+    const langs = csv.split(",");
+    const rejoined = ["2024", "01", "15"].join("-");
+    document.getElementById("outSplit").textContent =
+      `split 결과: ${JSON.stringify(langs)}\n` +
+      `join 결과: "${rejoined}"`;
+    console.log(langs, rejoined);
+  </script>
+</body>
+</html>

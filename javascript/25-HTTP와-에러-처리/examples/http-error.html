@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>25강. HTTP와 에러 처리 예제</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 24px auto; padding: 0 16px; }
+    h1 { font-size: 22px; }
+    .box { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 12px 0; background: #fafafa; }
+    button { padding: 6px 12px; font-size: 14px; }
+    input { padding: 6px 8px; font-size: 14px; width: 80px; }
+    pre { background: #fff; padding: 8px; border: 1px solid #eee; border-radius: 4px; white-space: pre-wrap; max-height: 240px; overflow: auto; }
+  </style>
+</head>
+<body>
+  <h1>25강. HTTP와 에러 처리</h1>
+  <p>F12 → Console에서 출력도 함께 확인하세요.</p>
+
+  <div class="box">
+    <h2>1. 상태 코드 표 (참고)</h2>
+    <pre>2xx: 200 OK, 201 Created
+3xx: 301/302 리다이렉트
+4xx: 400 잘못된 요청, 404 없음, 401 인증 필요
+5xx: 500 서버 오류, 503 점검 중</pre>
+  </div>
+
+  <div class="box">
+    <h2>2. try/catch + instanceof Error</h2>
+    <input id="postId" type="number" value="1" min="1" />
+    <button id="btnLoad">불러오기</button>
+    <pre id="outLoad">결과가 여기에 표시됩니다.</pre>
+  </div>
+
+  <div class="box">
+    <h2>3. Error 객체 직접 만들기</h2>
+    <pre id="outError"></pre>
+  </div>
+
+  <script>
+    const outLoad = document.getElementById("outLoad");
+    document.getElementById("btnLoad").addEventListener("click", async () => {
+      const id = document.getElementById("postId").value || "1";
+      outLoad.textContent = "불러오는 중...";
+      try {
+        const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+        const post = await res.json();
+        outLoad.textContent = `[성공] ${res.status}\n제목: ${post.title}`;
+        console.log("성공:", post);
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : "알 수 없는 오류";
+        outLoad.textContent = `[실패] ${msg}`;
+        console.log("실패:", e);
+      } finally {
+        console.log("요청 완료");
+      }
+    });
+
+    // 3. Error 직접 던지기
+    function divide(a, b) {
+      if (b === 0) throw new Error("0으로 나눌 수 없습니다.");
+      return a / b;
+    }
+    const outError = document.getElementById("outError");
+    try {
+      console.log(divide(10, 0));
+    } catch (e) {
+      outError.textContent =
+        `e instanceof Error: ${e instanceof Error}\n` +
+        `e.message: ${e.message}`;
+      console.log("Error 객체:", e);
+    }
+  </script>
+</body>
+</html>

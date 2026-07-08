@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>24강. URL 다루기와 타이머 예제</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 24px auto; padding: 0 16px; }
+    h1 { font-size: 22px; }
+    .box { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 12px 0; background: #fafafa; }
+    input { padding: 6px 8px; font-size: 14px; width: 60%; }
+    button { padding: 6px 12px; font-size: 14px; margin: 4px; }
+    pre { background: #fff; padding: 8px; border: 1px solid #eee; border-radius: 4px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>24강. URL 다루기와 타이머</h1>
+  <p>F12 → Console에서 출력도 함께 확인하세요.</p>
+
+  <div class="box">
+    <h2>1. URL 인코딩</h2>
+    <input id="kwInput" placeholder="한글/특수문자 검색어 입력" />
+    <button id="btnEnc">URL 만들기</button>
+    <pre id="outEnc"></pre>
+  </div>
+
+  <div class="box">
+    <h2>2. URLSearchParams 읽기</h2>
+    <pre id="outParams"></pre>
+  </div>
+
+  <div class="box">
+    <h2>3. setInterval 시작 / 정지</h2>
+    <button id="btnStart">시작</button>
+    <button id="btnStop">정지</button>
+    <pre id="outTimer">tick: 0</pre>
+  </div>
+
+  <script>
+    // 1. URL 인코딩
+    const outEnc = document.getElementById("outEnc");
+    document.getElementById("btnEnc").addEventListener("click", () => {
+      const kw = document.getElementById("kwInput").value || "어벤져스";
+      const encoded = encodeURIComponent(kw);
+      const url = `/movies?q=${encoded}`;
+      outEnc.textContent =
+        `원본: "${kw}"\n` +
+        `encodeURIComponent: "${encoded}"\n` +
+        `완성 URL: ${url}\n` +
+        `디코딩 결과: "${decodeURIComponent(encoded)}"`;
+      console.log({ kw, encoded, url });
+    });
+
+    // 2. URLSearchParams 읽기
+    const sample = "q=interstellar&page=2&sort=year";
+    const params = new URLSearchParams(sample);
+    document.getElementById("outParams").textContent =
+      `원본 쿼리: ${sample}\n` +
+      `q = ${params.get("q")}\n` +
+      `page = ${params.get("page")}\n` +
+      `sort = ${params.get("sort")}\n` +
+      `has page? ${params.has("page")}`;
+
+    // 3. setInterval 시작/정지
+    let timerId = null;
+    let tickCount = 0;
+    const outTimer = document.getElementById("outTimer");
+
+    document.getElementById("btnStart").addEventListener("click", () => {
+      if (timerId !== null) return;
+      timerId = setInterval(() => {
+        tickCount += 1;
+        outTimer.textContent = `tick: ${tickCount}`;
+        console.log("tick", tickCount);
+      }, 1000);
+    });
+    document.getElementById("btnStop").addEventListener("click", () => {
+      if (timerId !== null) {
+        clearInterval(timerId);
+        timerId = null;
+        outTimer.textContent = `tick: ${tickCount} (정지됨)`;
+      }
+    });
+  </script>
+</body>
+</html>

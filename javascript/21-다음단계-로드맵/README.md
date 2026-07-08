@@ -16,6 +16,17 @@ JavaScript 기초 과정을 마친 뒤 어떤 순서로 공부하면 좋은지 �
 - 이벤트
 - 비동기와 fetch
 
+## 1.5단계. React 대비 보충 (22~25강)
+
+**React/TypeScript 강의를 듣기 전**에 22~25강을 한 번 더 들으세요. 이 4강은 React 코드에 **바로** 등장하는 문법만 골라 모았습니다.
+
+| 강 | 주제 | 왜 필요한가 |
+|---|---|---|
+| [22-ES6-핵심-문법](../22-ES6-핵심-문법) | 구조분해, spread/rest, 템플릿 리터럴, 삼항 연산자, 화살표 함수 암묵적 반환 | `const [count, setCount] = useState(0)`, `set({ todos: [...s.todos, x] })` 같은 코드 이해 |
+| [23-배열과-문자열-심화](../23-배열과-문자열-심화) | `find()`, `includes()`, `trim()`, `split()` | `todos.find((t) => t.id === id)`, `get().input.trim()` 이해 |
+| [24-URL과-타이머](../24-URL과-타이머) | `encodeURIComponent`, `URLSearchParams`, `setTimeout` | 검색어 URL 처리, useEffect 디바운싱 패턴 이해 |
+| [25-HTTP와-에러-처리](../25-HTTP와-에러-처리) | GET/POST/PUT/DELETE, 상태 코드, `try/catch`, `instanceof Error`, `response.ok` | Axios API 모듈, store의 `search`/`add`/`toggle`/`remove` 액션 이해 |
+
 ## 2단계. DOM 프로젝트 반복
 
 새로운 개념을 계속 배우기보다 작은 프로젝트를 여러 번 만들어 보세요.

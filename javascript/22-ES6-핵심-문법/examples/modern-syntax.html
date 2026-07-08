@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>22강. ES6+ 핵심 문법 예제</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 24px auto; padding: 0 16px; }
+    h1 { font-size: 22px; }
+    .box { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 12px 0; background: #fafafa; }
+    code { background: #eee; padding: 2px 4px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>22강. ES6+ 핵심 문법</h1>
+  <p>F12 → Console 탭에서 출력 결과를 확인하세요.</p>
+
+  <div class="box">
+    <h2>1. 구조분해 할당</h2>
+    <pre><code id="out1"></code></pre>
+  </div>
+
+  <div class="box">
+    <h2>2. spread / rest</h2>
+    <pre><code id="out2"></code></pre>
+  </div>
+
+  <div class="box">
+    <h2>3. 템플릿 리터럴 / 삼항 / 화살표</h2>
+    <pre><code id="out3"></code></pre>
+  </div>
+
+  <script>
+    // 1. 구조분해
+    const fruits = ["사과", "바나나", "포도"];
+    const [first, second] = fruits;
+    const { name, age } = { name: "민수", age: 20 };
+
+    const out1 = document.getElementById("out1");
+    out1.textContent =
+      `배열 구조분해: first=${first}, second=${second}\n` +
+      `객체 구조분해: name=${name}, age=${age}`;
+    console.log(first, second, name, age);
+
+    // 2. spread / rest
+    const a = [1, 2];
+    const merged = [...a, 3, 4];
+    const user = { name: "민수", age: 20 };
+    const updated = { ...user, age: 21 };
+    const [head, ...tail] = [10, 20, 30, 40];
+
+    const out2 = document.getElementById("out2");
+    out2.textContent =
+      `배열 spread: [${merged}]\n` +
+      `객체 spread: ${JSON.stringify(updated)}\n` +
+      `rest: head=${head}, tail=[${tail}]`;
+    console.log(merged, updated, head, tail);
+
+    // 3. 템플릿 리터럴 + 삼항 + 화살표
+    const isLogin = true;
+    const greet = (n) => `안녕하세요, ${n}님!`;
+    const status = age >= 19 ? "성인" : "미성년자";
+    const makeUser = (n) => ({ name: n });
+
+    const out3 = document.getElementById("out3");
+    out3.textContent =
+      greet("영웅") + "\n" +
+      `상태: ${status}\n` +
+      `makeUser 결과: ${JSON.stringify(makeUser("영웅"))}\n` +
+      `로그인 메시지: ${isLogin ? "환영합니다!" : "로그인이 필요합니다."}`;
+    console.log(greet("영웅"), status, makeUser("영웅"));
+  </script>
+</body>
+</html>
